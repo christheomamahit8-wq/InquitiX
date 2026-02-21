@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InquitiX · penjelajahan pribadi</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      background: #ffffff;
+      color: #2c2c2c;
+      line-height: 1.5;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .full-container {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 1rem 2rem 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== HEADER MINIMALIS ===== */
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e0e0e0;
+      position: relative;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      color: #1a1a1a;
+      cursor: pointer;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .flag-button {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .flag-button:hover {
+      background: #f0f0f0;
+    }
+    .flag-button i {
+      font-size: 1.5rem;
+      color: #2a2a2a;
+    }
+
+    .icon-button {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #2a2a2a;
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .icon-button:hover {
+      background: #f0f0f0;
+    }
+    .icon-button.hidden {
+      display: none;
+    }
+
+    .language-dropdown {
+      position: absolute;
+      top: 60px;
+      right: 60px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 1rem;
+      z-index: 1000;
+      display: none;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      min-width: 250px;
+    }
+
+    .language-dropdown.show {
+      display: grid;
+    }
+
+    .lang-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border: 1px solid #f0f0f0;
+      border-radius: 30px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: 0.1s;
+      font-size: 0.95rem;
+    }
+    .lang-option:hover {
+      background: #2a2a2a;
+      color: white;
+      border-color: #2a2a2a;
+    }
+    .lang-option i {
+      font-size: 1.2rem;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 1rem;
+      right: 3rem;
+      background: #f0f0f0;
+      border: none;
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+      z-index: 10;
+    }
+    .close-button:hover {
+      background: #e0e0e0;
+    }
+    .close-button.hidden {
+      display: none;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+      width: 100%;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0.5rem 0 0.8rem;
+      width: 100%;
+    }
+
+    .corexa-logo-img {
+      height: 130px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+      background: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .inquitix-text-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: -15px;
+      margin: 0 auto;
+      padding: 0.5rem 0;
+      border-bottom: 3px solid #2a2a2a;
+    }
+
+    .inquiti-special {
+      font-size: 5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #1a1a1a;
+      line-height: 1;
+      font-family: 'Arial', 'Helvetica', sans-serif;
+    }
+
+    .x-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -15px;
+      position: relative;
+    }
+
+    .x-image-new {
+      height: 100px;
+      width: auto;
+      display: block;
+      background: transparent;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+
+    .description-text {
+      text-align: center;
+      max-width: 850px;
+      margin: 0.5rem auto 1rem;
+      font-size: 1.1rem;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    .description-text p {
+      margin-bottom: 0.8rem;
+    }
+
+    .description-text .highlight {
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .search-simple {
+      width: 100%;
+      max-width: 600px;
+      margin: 1rem auto 0.8rem;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 12px;
+      padding: 0.2rem;
+      border: 1px solid #d0d0d0;
+      transition: all 0.2s;
+    }
+    .search-box:focus-within {
+      border-color: #888;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .search-box i {
+      color: #5a5a5a;
+      font-size: 1.2rem;
+      margin-left: 1rem;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      padding: 1rem 0.8rem;
+      font-size: 1.2rem;
+      background: transparent;
+      outline: none;
+      color: #2c2c2c;
+      min-width: 0;
+    }
+
+    .search-box input::placeholder {
+      color: #888;
+      font-weight: 350;
+    }
+
+    .search-box button {
+      background: #2a2a2a;
+      border: none;
+      color: white;
+      padding: 0;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      margin: 4px;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+    }
+    .search-box button i {
+      margin: 0;
+      color: white;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-box button:hover {
+      background: #3a3a3a;
+    }
+
+    .long-description {
+      max-width: 900px;
+      margin: 2rem auto 2rem;
+      padding: 1.5rem;
+      background: #fafafa;
+      border-radius: 24px;
+      border: 1px solid #f0f0f0;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .long-description p {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .long-description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-section {
+      width: 100%;
+      margin: 2rem 0 1rem;
+      border-top: 1px solid #d0d0d0;
+      padding-top: 2rem;
+    }
+
+    .contact-section h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #1f1f1f;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.5px;
+      text-align: center;
+    }
+
+    .contact-form {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      color: #2c2c2c;
+      font-size: 1rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      font-size: 1rem;
+      border: 1px solid #cccccc;
+      border-radius: 12px;
+      outline: none;
+      transition: 0.2s;
+      background: #fafafa;
+      color: #2c2c2c;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #5a5a5a;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.03);
+      background: #ffffff;
+    }
+
+    .form-group textarea {
+      border-radius: 16px;
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
+    }
+
+    .submit-btn {
+      background: #2a2a2a;
+      border: none;
+      color: #ffffff;
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .submit-btn:hover {
+      background: #3a3a3a;
+    }
+
+    .about-page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem 0 2rem;
+      position: relative;
+    }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: #f9f9f9;
+      border-radius: 32px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 20px 35px -15px rgba(0,0,0,0.1);
+    }
+
+    .profile-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 15px 25px -10px rgba(0,0,0,0.2);
+      margin-bottom: 1.2rem;
+    }
+
+    .profile-card h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 0.4rem;
+    }
+
+    .profile-card .creator-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #2a2a2a;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 1rem;
+      width: 100%;
+    }
+
+    .profile-card .about-description {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      text-align: left;
+    }
+
+    .profile-card .about-note {
+      background: #ffffff;
+      padding: 1.5rem 1.8rem;
+      border-radius: 20px;
+      color: #444;
+      font-size: 1rem;
+      border-left: 5px solid #2a2a2a;
+      text-align: left;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      width: 100%;
+      line-height: 1.7;
+    }
+
+    .about-note i {
+      color: #2a2a2a;
+      margin-right: 8px;
+    }
+
+    .about-note p {
+      margin-top: 0.8rem;
+      margin-bottom: 0;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid #cccccc;
+      margin-top: 2.5rem;
+      padding-top: 1.2rem;
+      color: #3a3a3a;
+      font-size: 0.9rem;
+    }
+    .footer .copyright {
+      color: #3a3a3a;
+    }
+    .footer .links {
+      display: flex;
+      gap: 1.2rem;
+    }
+    .footer .links a {
+      text-decoration: none;
+      color: #2c2c2c;
+      font-weight: 450;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.1s;
+    }
+    .footer .links a:hover {
+      border-bottom: 1px solid #3a3a3a;
+    }
+
+    @media (max-width: 700px) {
+      .full-container { padding: 0.8rem 1rem; }
+      .logo-text { font-size: 1.5rem; }
+      .flag-button { font-size: 1.5rem; width: 40px; height: 40px; }
+      .icon-button { font-size: 1.5rem; width: 40px; height: 40px; }
+      .close-button { top: 0.5rem; right: 1.5rem; }
+      .inquiti-special { font-size: 3.5rem; }
+      .x-image-new { height: 80px; }
+      .x-container { margin-left: -10px; }
+      .profile-card { padding: 1.8rem 1rem; }
+      .profile-card h2 { font-size: 1.8rem; }
+      .search-box button { width: 44px; height: 44px; }
+      .search-box button i { font-size: 1.2rem; }
+      .footer { flex-direction: column; align-items: center; text-align: center; }
+      .footer .links { gap: 1rem; }
+      .description-text { font-size: 1rem; }
+      .long-description { padding: 1rem; margin: 1rem auto; }
+      .language-dropdown { right: 10px; left: 10px; width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="full-container">
+
+    <div class="main-header">
+      <div class="logo-text" id="logoHome">InquitiX</div>
+      <div class="header-right">
+        <button class="flag-button" id="flagButton">
+          <i class="fas fa-flag"></i>
+        </button>
+        <button class="icon-button" id="infoButton">
+          <i class="fas fa-info-circle"></i>
+        </button>
+      </div>
+
+      <div class="language-dropdown" id="languageDropdown">
+        <div class="lang-option" data-lang="id">
+          <i class="fas fa-flag"></i> Indonesia
+        </div>
+        <div class="lang-option" data-lang="en">
+          <i class="fas fa-flag"></i> English
+        </div>
+        <div class="lang-option" data-lang="ja">
+          <i class="fas fa-flag"></i> 日本語
+        </div>
+        <div class="lang-option" data-lang="es">
+          <i class="fas fa-flag"></i> Español
+        </div>
+      </div>
+    </div>
+
+    <button class="close-button hidden" id="closeAboutBtn">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <div id="homePage" class="page active">
+      <div class="brand-container">
+        <img src="https://i.ibb.co.com/xqqC7QKT/1771412608807.jpg" alt="Corexa Logo" class="corexa-logo-img">
+        <div class="inquitix-text-container">
+          <span class="inquiti-special">𝞘𝞰𝞿𝞵𝙞𝞽𝙞</span>
+          <div class="x-container">
+            <img src="https://i.ibb.co.com/chMxWzf5/1771637089593.jpg" alt="X" class="x-image-new">
+          </div>
+        </div>
+      </div>
+
+      <div class="description-text" id="descriptionText">
+        <p><span class="highlight">InquitiX</span> adalah layanan penjelajahan web pribadi yang mengenkripsi semua koneksi Anda, memastikan aktivitas online tidak dapat dilacak oleh pihak ketiga. Dengan teknologi enkripsi ujung-ke-ujung, kami melindungi data Anda dari penyadapan dan pengawasan.</p>
+        <p>Tanpa log aktivitas, tanpa pelacakan – privasi Anda adalah prioritas kami. Cukup masukkan alamat web atau kata kunci pencarian, dan nikmati kebebasan.</p>
+      </div>
+
+      <div class="search-simple">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="inquitiSearch" placeholder="Search InquitiX" autofocus>
+          <button id="inquitiSearchBtn"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="long-description" id="longDescription">
+        <p>InquitiX adalah alat pencarian cerdas yang dirancang untuk membantu Anda menemukan apa saja, tanpa batasan topik, tanpa batasan perspektif, dan tanpa batasan kemungkinan. Platform ini dibangun untuk mereka yang tidak hanya ingin mencari, tetapi ingin memahami, mengeksplorasi, dan berkembang.</p>
+        <p>Untuk mulai menggunakan InquitiX, cukup ketik apa pun yang ingin Anda cari pada kolom pencarian utama. Anda dapat memasukkan satu kata, kalimat lengkap, pertanyaan mendalam, ide bisnis, konsep teknologi, strategi investasi, tren masa depan, atau bahkan pemikiran abstrak. InquitiX dirancang untuk membaca maksud di balik pencarian Anda, bukan sekadar mencocokkan kata.</p>
+        <p>Setelah Anda melakukan pencarian, sistem akan menampilkan hasil yang relevan dan terstruktur. Anda dapat memperdalam hasil tersebut dengan memilih pendekatan pencarian yang sesuai dengan kebutuhan Anda, baik untuk hasil cepat dan ringkas, analisis yang lebih mendalam, eksplorasi lintas perspektif global, maupun pencarian ide-ide baru yang inovatif.</p>
+        <p>InquitiX juga memungkinkan Anda menyaring hasil berdasarkan relevansi, waktu, kategori, dan tingkat kedalaman informasi. Dengan fitur ini, Anda dapat mengontrol fokus pencarian tanpa kehilangan gambaran besar dari topik yang sedang Anda telusuri.</p>
+        <p>Bagi pengguna yang ingin kendali lebih lanjut, tersedia sintaks pencarian khusus untuk mempersempit atau memperluas hasil secara presisi. Anda dapat menekankan kata tertentu, menghilangkan istilah yang tidak relevan, atau mengarahkan sistem untuk melakukan pencarian yang lebih mendalam dan berorientasi masa depan.</p>
+        <p>InquitiX bukan sekadar alat untuk menemukan informasi. Ini adalah ruang eksplorasi. Anda dapat menyimpan hasil, mengembangkan ide dari temuan Anda, dan membangun pemahaman yang lebih luas dari setiap pencarian. Setiap pertanyaan adalah pintu menuju wawasan baru.</p>
+        <p>Kami percaya bahwa perubahan besar selalu dimulai dari rasa ingin tahu. InquitiX hadir untuk mendukung proses itu — membantu Anda berpikir lebih dalam, melihat lebih jauh, dan menemukan lebih banyak.</p>
+        <p>Mulailah dengan satu pertanyaan. Dan biarkan InquitiX membawa Anda melampaui batas pencarian biasa.</p>
+      </div>
+
+      <div class="contact-section">
+        <h2 id="contactTitle">Hubungi Kami</h2>
+        <div class="contact-form" id="contactForm">
+          <div class="form-group">
+            <label for="email" id="emailLabel">Email</label>
+            <input type="email" id="email" placeholder="nama@domain.com" required>
+          </div>
+          <div class="form-group">
+            <label for="password" id="passwordLabel">Sandi</label>
+            <input type="password" id="password" placeholder="••••••••" required>
+          </div>
+          <div class="form-group">
+            <label for="message" id="messageLabel">Pesan</label>
+            <textarea id="message" placeholder="Tulis pesan Anda di sini..."></textarea>
+          </div>
+          <button class="submit-btn" id="sendMessageBtn"><i class="fas fa-paper-plane"></i> <span id="sendBtnText">Kirim pesan</span></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="aboutPage" class="page">
+      <div class="about-page">
+        <div class="profile-card">
+          <img src="https://i.ibb.co.com/TxhxQbmg/IMG-20260220-181731.jpg" alt="Profil Okagawa" class="profile-photo">
+          
+          <h2 id="aboutTitle">InquitiX</h2>
+          <div class="creator-name" id="creatorName">Okagawa</div>
+          
+          <div class="about-description" id="aboutDescription">
+            <p>Pencipta InquitiX memilih untuk tetap anonim karena usianya yang masih 15 tahun. Keputusan ini diambil untuk melindungi privasi dan keamanannya, mengingat secara hukum ia masih di bawah umur dan tidak diperkenankan untuk mendirikan atau mengelola entitas bisnis secara terbuka.</p>
+            <p>Meskipun usianya muda, visinya sangat jelas: menciptakan ruang pencarian yang bebas, privat, dan tanpa batas. Dengan dukungan dari komunitas dan para pengguna, InquitiX terus dikembangkan menjadi platform yang dapat diandalkan untuk eksplorasi informasi.</p>
+          </div>
+          
+          <div class="about-note" id="aboutNote">
+            <i class="fas fa-lock"></i> Rencana ke depan:
+            <p>Jika InquitiX berhasil berkembang menjadi platform besar dan digunakan oleh jutaan orang di seluruh dunia, atau ketika sang pencipta telah mencapai usia 20 tahun dan dianggap dewasa secara hukum, barulah ia akan mempublikasikan wajah dan nama aslinya kepada publik.</p>
+            <p style="margin-top: 0.8rem;">Keputusan ini diambil untuk memastikan bahwa ia dapat fokus mengembangkan InquitiX tanpa tekanan atau risiko yang tidak perlu. Dukungan Anda adalah motivasi terbesar untuk terus berkarya.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="copyright">2026 InquitiX — privasi pertama</div>
+      <div class="links">
+        <a href="#" id="footerPrivacy">Privasi</a>
+        <a href="#" id="footerContact">Kontak</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const homePage = document.getElementById('homePage');
+      const aboutPage = document.getElementById('aboutPage');
+      const logoHome = document.getElementById('logoHome');
+      const infoButton = document.getElementById('infoButton');
+      const closeAboutBtn = document.getElementById('closeAboutBtn');
+
+      function showHome() {
+        homePage.classList.add('active');
+        aboutPage.classList.remove('active');
+        infoButton.classList.remove('hidden');
+        closeAboutBtn.classList.add('hidden');
+        window.scrollTo(0, 0);
+      }
+
+      function showAbout() {
+        aboutPage.classList.add('active');
+        homePage.classList.remove('active');
+        infoButton.classList.add('hidden');
+        closeAboutBtn.classList.remove('hidden');
+        window.scrollTo(0, 0);
+      }
+
+      logoHome.addEventListener('click', showHome);
+      infoButton.addEventListener('click', showAbout);
+      if (closeAboutBtn) {
+        closeAboutBtn.addEventListener('click', showHome);
+      }
+
+      // ===== DROPDOWN BAHASA =====
+      const flagButton = document.getElementById('flagButton');
+      const languageDropdown = document.getElementById('languageDropdown');
+
+      flagButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('show');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!languageDropdown.contains(e.target) && e.target !== flagButton) {
+          languageDropdown.classList.remove('show');
+        }
+      });
+
+      // ===== PENCARIAN DENGAN FALLBACK YANG BENAR =====
+      const input = document.getElementById('inquitiSearch');
+      const searchBtn = document.getElementById('inquitiSearchBtn');
+
+      const searchEngines = [
+        { name: 'Google', url: 'https://www.google.com/search?q=' },
+        { name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=' },
+        { name: 'Yandex', url: 'https://yandex.com/search/?text=' }
+      ];
+
+      // Fungsi untuk memulai fallback
+      function startFallback(query, engineIndex) {
+        // Simpan data fallback di sessionStorage
+        sessionStorage.setItem('fallbackQuery', query);
+        sessionStorage.setItem('fallbackCurrentIndex', engineIndex);
+        
+        const engine = searchEngines[engineIndex];
+        const url = engine.url + encodeURIComponent(query);
+        
+        // Redirect ke mesin pencari saat ini
+        window.location.href = url;
+      }
+
+      // Fungsi untuk mengecek dan melanjutkan fallback
+      function continueFallback() {
+        const query = sessionStorage.getItem('fallbackQuery');
+        const currentIndex = sessionStorage.getItem('fallbackCurrentIndex');
+        
+        if (!query || !currentIndex) return false;
+        
+        const nextIndex = parseInt(currentIndex) + 1;
+        
+        // Jika masih ada mesin pencari berikutnya
+        if (nextIndex < searchEngines.length) {
+          // Update index di sessionStorage
+          sessionStorage.setItem('fallbackCurrentIndex', nextIndex);
+          
+          // Redirect ke mesin pencari berikutnya
+          const nextEngine = searchEngines[nextIndex];
+          window.location.href = nextEngine.url + encodeURIComponent(query);
+          return true;
+        } else {
+          // Tidak ada mesin pencari lagi, hapus sessionStorage
+          sessionStorage.removeItem('fallbackQuery');
+          sessionStorage.removeItem('fallbackCurrentIndex');
+          return false;
+        }
+      }
+
+      // Cek apakah ini halaman hasil pencarian yang perlu fallback
+      // Kita akan deteksi berdasarkan URL dan konten halaman
+      function checkAndHandleFallback() {
+        const query = sessionStorage.getItem('fallbackQuery');
+        const currentIndex = sessionStorage.getItem('fallbackCurrentIndex');
+        
+        if (!query || !currentIndex) return;
+        
+        const currentEngine = searchEngines[parseInt(currentIndex)];
+        const currentUrl = window.location.href;
+        
+        // Deteksi jika ini adalah halaman Google
+        if (currentUrl.includes('google.com')) {
+          // Tunggu sebentar untuk memastikan halaman Google selesai dimuat
+          setTimeout(() => {
+            // Cek apakah Google menampilkan pesan "tidak ditemukan" atau hasil sangat sedikit
+            // Ini deteksi sederhana, bisa dikembangkan lebih lanjut
+            const hasNoResults = 
+              document.title.includes('tidak ditemukan') || 
+              document.title.includes('not found') ||
+              document.body.innerText.includes('tidak menemukan') ||
+              document.body.innerText.includes('No results found') ||
+              document.querySelector('#res')?.children.length === 0; // Jika tidak ada hasil
+            
+            if (hasNoResults) {
+              // Google tidak menemukan, lanjut ke mesin berikutnya
+              continueFallback();
+            } else {
+              // Ada hasil, hapus sessionStorage
+              sessionStorage.removeItem('fallbackQuery');
+              sessionStorage.removeItem('fallbackCurrentIndex');
+            }
+          }, 1500); // Tunggu 1.5 detik untuk memastikan halaman termuat
+        }
+        // Deteksi untuk DuckDuckGo
+        else if (currentUrl.includes('duckduckgo.com')) {
+          setTimeout(() => {
+            const hasNoResults = 
+              document.title.includes('tidak ditemukan') ||
+              document.title.includes('not found') ||
+              document.body.innerText.includes('No results') ||
+              !document.querySelector('.results');
+            
+            if (hasNoResults) {
+              continueFallback();
+            } else {
+              sessionStorage.removeItem('fallbackQuery');
+              sessionStorage.removeItem('fallbackCurrentIndex');
+            }
+          }, 1500);
+        }
+        // Deteksi untuk Yandex
+        else if (currentUrl.includes('yandex.com')) {
+          setTimeout(() => {
+            const hasNoResults = 
+              document.title.includes('tidak ditemukan') ||
+              document.title.includes('not found') ||
+              document.body.innerText.includes('Nothing found');
+            
+            if (hasNoResults) {
+              // Jika Yandex juga tidak menemukan, fallback ke Google (atau berhenti)
+              // Kita bisa loop lagi atau berhenti
+              const nextIndex = parseInt(currentIndex) + 1;
+              if (nextIndex < searchEngines.length) {
+                continueFallback();
+              } else {
+                sessionStorage.removeItem('fallbackQuery');
+                sessionStorage.removeItem('fallbackCurrentIndex');
+              }
+            } else {
+              sessionStorage.removeItem('fallbackQuery');
+              sessionStorage.removeItem('fallbackCurrentIndex');
+            }
+          }, 1500);
+        }
+      }
+
+      // Jalankan pengecekan fallback saat halaman dimuat
+      window.addEventListener('load', checkAndHandleFallback);
+
+      function getDestination(query) {
+        if (!query.trim()) return null;
+        let q = query.trim();
+
+        // Perintah khusus DuckDuckGo
+        if (q.startsWith('ddg:') || q.startsWith('!ddg ') || q.startsWith('!d ')) {
+          let terms = q.replace(/^(ddg:|!ddg |!d )\s*/, '').trim() || 'inquiti';
+          return `https://duckduckgo.com/?q=${encodeURIComponent(terms)}`;
+        }
+        
+        // Perintah khusus Yandex
+        if (q.startsWith('yandex:') || q.startsWith('!yandex ') || q.startsWith('!y ')) {
+          let terms = q.replace(/^(yandex:|!yandex |!y )\s*/, '').trim() || 'inquiti';
+          return `https://yandex.com/search/?text=${encodeURIComponent(terms)}`;
+        }
+
+        // Perintah khusus Google
+        if (q.startsWith('google:') || q.startsWith('!google ') || q.startsWith('!g ')) {
+          let terms = q.replace(/^(google:|!google |!g )\s*/, '').trim() || 'inquiti';
+          return `https://www.google.com/search?q=${encodeURIComponent(terms)}`;
+        }
+
+        // Jika mengandung titik dan tanpa spasi → domain/URL
+        if (q.includes('.') && !q.includes(' ')) {
+          if (q.startsWith('http://') || q.startsWith('https://')) return q;
+          return `https://${q}`;
+        }
+
+        // Untuk kata kunci biasa, gunakan fallback otomatis mulai dari Google
+        return { fallback: true, query: q };
+      }
+
+      function redirectNow() {
+        const raw = input.value;
+        if (!raw.trim()) {
+          alert('Masukkan kata kunci atau alamat website');
+          return;
+        }
+        
+        const result = getDestination(raw);
+        
+        if (result && typeof result === 'string') {
+          window.location.href = result;
+        } else if (result && result.fallback) {
+          // Mulai fallback dari Google (index 0)
+          startFallback(result.query, 0);
+        } else {
+          alert('Tidak dapat memproses');
+        }
+      }
+
+      if (searchBtn) {
+        searchBtn.addEventListener('click', (e) => { e.preventDefault(); redirectNow(); });
+      }
+      if (input) {
+        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); redirectNow(); } });
+      }
+
+      // ===== FORMULIR SIMULASI =====
+      const sendBtn = document.getElementById('sendMessageBtn');
+      if (sendBtn) {
+        sendBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const email = document.getElementById('email').value;
+          const password = document.getElementById('password').value;
+          const message = document.getElementById('message').value;
+          if (!email || !password || !message) {
+            alert('Harap isi email, sandi, dan pesan.');
+            return;
+          }
+          alert(`Pesan terkirim (simulasi)\nEmail: ${email}\nPesan: ${message}`);
+          document.getElementById('email').value = '';
+          document.getElementById('password').value = '';
+          document.getElementById('message').value = '';
+        });
+      }
+
+      // ===== SISTEM BAHASA =====
+      const langOptions = document.querySelectorAll('.lang-option');
+      
+      const elements = {
+        description: document.getElementById('descriptionText'),
+        longDescription: document.getElementById('longDescription'),
+        contactTitle: document.getElementById('contactTitle'),
+        emailLabel: document.getElementById('emailLabel'),
+        passwordLabel: document.getElementById('passwordLabel'),
+        messageLabel: document.getElementById('messageLabel'),
+        emailPlaceholder: document.getElementById('email'),
+        passwordPlaceholder: document.getElementById('password'),
+        messagePlaceholder: document.getElementById('message'),
+        sendBtnText: document.getElementById('sendBtnText'),
+        aboutTitle: document.getElementById('aboutTitle'),
+        creatorName: document.getElementById('creatorName'),
+        aboutDescription: document.getElementById('aboutDescription'),
+        aboutNote: document.getElementById('aboutNote'),
+        footerPrivacy: document.getElementById('footerPrivacy'),
+        footerContact: document.getElementById('footerContact'),
+        searchPlaceholder: input
+      };
+
+      const translations = {
+        id: {
+          description: '<p><span class="highlight">InquitiX</span> adalah layanan penjelajahan web pribadi yang mengenkripsi semua koneksi Anda, memastikan aktivitas online tidak dapat dilacak oleh pihak ketiga. Dengan teknologi enkripsi ujung-ke-ujung, kami melindungi data Anda dari penyadapan dan pengawasan.</p><p>Tanpa log aktivitas, tanpa pelacakan – privasi Anda adalah prioritas kami. Cukup masukkan alamat web atau kata kunci pencarian, dan nikmati kebebasan.</p>',
+          longDescription: '<p>InquitiX adalah alat pencarian cerdas yang dirancang untuk membantu Anda menemukan apa saja, tanpa batasan topik, tanpa batasan perspektif, dan tanpa batasan kemungkinan. Platform ini dibangun untuk mereka yang tidak hanya ingin mencari, tetapi ingin memahami, mengeksplorasi, dan berkembang.</p><p>Untuk mulai menggunakan InquitiX, cukup ketik apa pun yang ingin Anda cari pada kolom pencarian utama. Anda dapat memasukkan satu kata, kalimat lengkap, pertanyaan mendalam, ide bisnis, konsep teknologi, strategi investasi, tren masa depan, atau bahkan pemikiran abstrak. InquitiX dirancang untuk membaca maksud di balik pencarian Anda, bukan sekadar mencocokkan kata.</p><p>Setelah Anda melakukan pencarian, sistem akan menampilkan hasil yang relevan dan terstruktur. Anda dapat memperdalam hasil tersebut dengan memilih pendekatan pencarian yang sesuai dengan kebutuhan Anda, baik untuk hasil cepat dan ringkas, analisis yang lebih mendalam, eksplorasi lintas perspektif global, maupun pencarian ide-ide baru yang inovatif.</p><p>InquitiX juga memungkinkan Anda menyaring hasil berdasarkan relevansi, waktu, kategori, dan tingkat kedalaman informasi. Dengan fitur ini, Anda dapat mengontrol fokus pencarian tanpa kehilangan gambaran besar dari topik yang sedang Anda telusuri.</p><p>Bagi pengguna yang ingin kendali lebih lanjut, tersedia sintaks pencarian khusus untuk mempersempit atau memperluas hasil secara presisi. Anda dapat menekankan kata tertentu, menghilangkan istilah yang tidak relevan, atau mengarahkan sistem untuk melakukan pencarian yang lebih mendalam dan berorientasi masa depan.</p><p>InquitiX bukan sekadar alat untuk menemukan informasi. Ini adalah ruang eksplorasi. Anda dapat menyimpan hasil, mengembangkan ide dari temuan Anda, dan membangun pemahaman yang lebih luas dari setiap pencarian. Setiap pertanyaan adalah pintu menuju wawasan baru.</p><p>Kami percaya bahwa perubahan besar selalu dimulai dari rasa ingin tahu. InquitiX hadir untuk mendukung proses itu — membantu Anda berpikir lebih dalam, melihat lebih jauh, dan menemukan lebih banyak.</p><p>Mulailah dengan satu pertanyaan. Dan biarkan InquitiX membawa Anda melampaui batas pencarian biasa.</p>',
+          contactTitle: 'Hubungi Kami',
+          emailLabel: 'Email',
+          passwordLabel: 'Sandi',
+          messageLabel: 'Pesan',
+          emailPlaceholder: 'nama@domain.com',
+          passwordPlaceholder: '••••••••',
+          messagePlaceholder: 'Tulis pesan Anda di sini...',
+          sendBtnText: 'Kirim pesan',
+          aboutTitle: 'InquitiX',
+          creatorName: 'Okagawa',
+          aboutDescription: '<p>Pencipta InquitiX memilih untuk tetap anonim karena usianya yang masih 15 tahun. Keputusan ini diambil untuk melindungi privasi dan keamanannya, mengingat secara hukum ia masih di bawah umur dan tidak diperkenankan untuk mendirikan atau mengelola entitas bisnis secara terbuka.</p><p>Meskipun usianya muda, visinya sangat jelas: menciptakan ruang pencarian yang bebas, privat, dan tanpa batas. Dengan dukungan dari komunitas dan para pengguna, InquitiX terus dikembangkan menjadi platform yang dapat diandalkan untuk eksplorasi informasi.</p>',
+          aboutNote: '<i class="fas fa-lock"></i> Rencana ke depan:<p>Jika InquitiX berhasil berkembang menjadi platform besar dan digunakan oleh jutaan orang di seluruh dunia, atau ketika sang pencipta telah mencapai usia 20 tahun dan dianggap dewasa secara hukum, barulah ia akan mempublikasikan wajah dan nama aslinya kepada publik.</p><p style="margin-top: 0.8rem;">Keputusan ini diambil untuk memastikan bahwa ia dapat fokus mengembangkan InquitiX tanpa tekanan atau risiko yang tidak perlu. Dukungan Anda adalah motivasi terbesar untuk terus berkarya.</p>',
+          footerPrivacy: 'Privasi',
+          footerContact: 'Kontak',
+          searchPlaceholder: 'Search InquitiX'
+        },
+        en: {
+          description: '<p><span class="highlight">InquitiX</span> is a private web browsing service that encrypts all your connections, ensuring online activities cannot be tracked by third parties. With end-to-end encryption technology, we protect your data from eavesdropping and surveillance.</p><p>No activity logs, no tracking – your privacy is our priority. Simply enter a web address or search keyword, and enjoy freedom.</p>',
+          longDescription: '<p>InquitiX is an intelligent search tool designed to help you find anything, without topic boundaries, without perspective boundaries, and without possibility boundaries. This platform is built for those who not only want to search, but want to understand, explore, and grow.</p><p>To start using InquitiX, simply type whatever you want to search in the main search column. You can enter a single word, complete sentences, deep questions, business ideas, technology concepts, investment strategies, future trends, or even abstract thoughts. InquitiX is designed to read the intent behind your search, not just match words.</p><p>After you perform a search, the system will display relevant and structured results. You can deepen these results by selecting a search approach that suits your needs, whether for quick and concise results, deeper analysis, cross-perspective global exploration, or searching for innovative new ideas.</p><p>InquitiX also allows you to filter results by relevance, time, category, and depth of information. With this feature, you can control the search focus without losing the big picture of the topic you are exploring.</p><p>For users who want more control, special search syntax is available to narrow or expand results precisely. You can emphasize certain words, eliminate irrelevant terms, or direct the system to conduct deeper and future-oriented searches.</p><p>InquitiX is not just a tool for finding information. It is an exploration space. You can save results, develop ideas from your findings, and build a broader understanding from each search. Every question is a door to new insights.</p><p>We believe that great change always starts from curiosity. InquitiX is here to support that process — helping you think deeper, see further, and discover more.</p><p>Start with one question. And let InquitiX take you beyond ordinary search boundaries.</p>',
+          contactTitle: 'Contact Us',
+          emailLabel: 'Email',
+          passwordLabel: 'Password',
+          messageLabel: 'Message',
+          emailPlaceholder: 'name@domain.com',
+          passwordPlaceholder: '••••••••',
+          messagePlaceholder: 'Write your message here...',
+          sendBtnText: 'Send message',
+          aboutTitle: 'InquitiX',
+          creatorName: 'Okagawa',
+          aboutDescription: '<p>The creator of InquitiX chooses to remain anonymous because he is still 15 years old. This decision was made to protect his privacy and security, considering that legally he is still a minor and not permitted to openly establish or manage a business entity.</p><p>Despite his young age, his vision is very clear: to create a free, private, and limitless search space. With support from the community and users, InquitiX continues to be developed into a reliable platform for information exploration.</p>',
+          aboutNote: '<i class="fas fa-lock"></i> Future Plans:<p>If InquitiX successfully grows into a major platform used by millions of people worldwide, or when the creator reaches 20 years of age and is considered legally adult, he will then publish his face and real name to the public.</p><p style="margin-top: 0.8rem;">This decision was made to ensure that he can focus on developing InquitiX without unnecessary pressure or risk. Your support is the greatest motivation to keep creating.</p>',
+          footerPrivacy: 'Privacy',
+          footerContact: 'Contact',
+          searchPlaceholder: 'Search InquitiX'
+        },
+        ja: {
+          description: '<p><span class="highlight">InquitiX</span>は、すべての接続を暗号化し、オンラインアクティビティが第三者によって追跡されるのを防ぐプライベートWebブラウジングサービスです。エンドツーエンドの暗号化技術により、傍受や監視からデータを保護します。</p><p>アクティビティログなし、追跡なし – あなたのプライバシーが最優先です。ウェブアドレスまたは検索キーワードを入力するだけで、自由をお楽しみください。</p>',
+          longDescription: '<p>InquitiXは、トピックの境界、視点の境界、可能性の境界なしに、あらゆるものを見つけることができるインテリジェントな検索ツールです。このプラットフォームは、単に検索したいだけでなく、理解し、探求し、成長したい人のために構築されています。</p><p>InquitiXの使用を開始するには、メインの検索欄に検索したいものを入力するだけです。単語、完全な文章、深い質問、ビジネスアイデア、技術コンセプト、投資戦略、将来のトレンド、あるいは抽象的な考えまで入力できます。InquitiXは、単に単語を一致させるだけでなく、検索の背後にある意図を読み取るように設計されています。</p><p>検索を実行すると、システムは関連性の高い構造化された結果を表示します。これらの結果は、迅速で簡潔な結果、より深い分析、グローバルな視点を超えた探求、革新的な新しいアイデアの検索など、ニーズに合った検索アプローチを選択することで深めることができます。</p><p>InquitiXでは、関連性、時間、カテゴリ、情報の深さによって結果をフィルタリングすることもできます。この機能により、探索しているトピックの全体像を見失うことなく、検索の焦点を制御できます。</p><p>より細かい制御を希望するユーザーのために、結果を正確に絞り込んだり拡大したりするための特別な検索構文が用意されています。特定の単語を強調したり、無関係な用語を除外したり、より深く未来志向の検索を行うようにシステムを指示することができます。</p><p>InquitiXは単なる情報検索ツールではありません。それは探求の場です。結果を保存し、発見からアイデアを発展させ、毎回の検索からより広い理解を構築することができます。すべての質問は新しい洞察への扉です。</p><p>大きな変化は常に好奇心から始まると信じています。InquitiXはそのプロセスをサポートするためにここにあります — より深く考え、より遠くを見て、より多くを発見する手助けをします。</p><p>一つの質問から始めてください。そしてInquitiXがあなたを普通の検索の境界を超えて連れて行ってください。</p>',
+          contactTitle: 'お問い合わせ',
+          emailLabel: 'メール',
+          passwordLabel: 'パスワード',
+          messageLabel: 'メッセージ',
+          emailPlaceholder: 'name@domain.com',
+          passwordPlaceholder: '••••••••',
+          messagePlaceholder: 'ここにメッセージを書いてください...',
+          sendBtnText: 'メッセージを送信',
+          aboutTitle: 'InquitiX',
+          creatorName: 'Okagawa',
+          aboutDescription: '<p>InquitiXの製作者は、まだ15歳であるため、匿名を選択しています。この決定は、彼のプライバシーと安全を保護するために行われました。法的にはまだ未成年であり、公然と事業体を設立または管理することは許可されていません。</p><p>若い年齢にもかかわらず、彼のビジョンは非常に明確です：自由でプライベートで、制限のない検索空間を作り出すことです。コミュニティとユーザーの支援により、InquitiXは情報探索のための信頼できるプラットフォームへと発展し続けています。</p>',
+          aboutNote: '<i class="fas fa-lock"></i> 将来の計画:<p>InquitiXが世界中の何百万人もの人々に使用される主要なプラットフォームに成長するか、製作者が20歳に達し法的に成人と見なされた場合、その時に彼は自分の顔と本名を公表します。</p><p style="margin-top: 0.8rem;">この決定は、不必要なプレッシャーやリスクなしにInquitiXの開発に集中できるようにするために行われました。皆様のサポートが、創造を続ける最大の動機です。</p>',
+          footerPrivacy: 'プライバシー',
+          footerContact: 'お問い合わせ',
+          searchPlaceholder: 'InquitiXを検索'
+        },
+        es: {
+          description: '<p><span class="highlight">InquitiX</span> es un servicio de navegación web privada que cifra todas sus conexiones, asegurando que las actividades en línea no puedan ser rastreadas por terceros. Con tecnología de cifrado de extremo a extremo, protegemos sus datos de escuchas y vigilancia.</p><p>Sin registros de actividad, sin seguimiento – su privacidad es nuestra prioridad. Simplemente ingrese una dirección web o palabra clave de búsqueda y disfrute de la libertad.</p>',
+          longDescription: '<p>InquitiX es una herramienta de búsqueda inteligente diseñada para ayudarlo a encontrar cualquier cosa, sin límites de temas, sin límites de perspectivas y sin límites de posibilidades. Esta plataforma está construida para aquellos que no solo quieren buscar, sino que quieren comprender, explorar y crecer.</p><p>Para comenzar a usar InquitiX, simplemente escriba lo que desee buscar en la columna de búsqueda principal. Puede ingresar una sola palabra, oraciones completas, preguntas profundas, ideas de negocios, conceptos tecnológicos, estrategias de inversión, tendencias futuras o incluso pensamientos abstractos. InquitiX está diseñado para leer la intención detrás de su búsqueda, no solo para coincidir con palabras.</p><p>Después de realizar una búsqueda, el sistema mostrará resultados relevantes y estructurados. Puede profundizar estos resultados seleccionando un enfoque de búsqueda que se adapte a sus necesidades, ya sea para resultados rápidos y concisos, análisis más profundos, exploración global de perspectivas cruzadas o búsqueda de nuevas ideas innovadoras.</p><p>InquitiX también le permite filtrar resultados por relevancia, tiempo, categoría y profundidad de la información. Con esta función, puede controlar el enfoque de la búsqueda sin perder la visión general del tema que está explorando.</p><p>Para los usuarios que desean un control más detallado, hay disponible una sintaxis de búsqueda especial para reducir o ampliar los resultados con precisión. Puede enfatizar ciertas palabras, eliminar términos irrelevantes o dirigir el sistema para realizar búsquedas más profundas y orientadas al futuro.</p><p>InquitiX no es solo una herramienta para encontrar información. Es un espacio de exploración. Puede guardar resultados, desarrollar ideas a partir de sus hallazgos y construir una comprensión más amplia de cada búsqueda. Cada pregunta es una puerta a nuevos conocimientos.</p><p>Creemos que los grandes cambios siempre comienzan con la curiosidad. InquitiX está aquí para apoyar ese proceso — ayudándole a pensar más profundamente, ver más allá y descubrir más.</p><p>Comience con una pregunta. Y deje que InquitiX lo lleve más allá de los límites de búsqueda comunes.</p>',
+          contactTitle: 'Contáctenos',
+          emailLabel: 'Correo',
+          passwordLabel: 'Contraseña',
+          messageLabel: 'Mensaje',
+          emailPlaceholder: 'nombre@dominio.com',
+          passwordPlaceholder: '••••••••',
+          messagePlaceholder: 'Escriba su mensaje aquí...',
+          sendBtnText: 'Enviar mensaje',
+          aboutTitle: 'InquitiX',
+          creatorName: 'Okagawa',
+          aboutDescription: '<p>El creador de InquitiX elige permanecer anónimo porque aún tiene 15 años. Esta decisión se tomó para proteger su privacidad y seguridad, considerando que legalmente aún es menor de edad y no se le permite establecer o administrar abiertamente una entidad comercial.</p><p>A pesar de su corta edad, su visión es muy clara: crear un espacio de búsqueda libre, privado y sin límites. Con el apoyo de la comunidad y los usuarios, InquitiX continúa desarrollándose como una plataforma confiable para la exploración de información.</p>',
+          aboutNote: '<i class="fas fa-lock"></i> Planes Futuros:<p>Si InquitiX logra convertirse en una plataforma importante utilizada por millones de personas en todo el mundo, o cuando el creador alcance los 20 años de edad y sea considerado legalmente adulto, entonces publicará su rostro y nombre real al público.</p><p style="margin-top: 0.8rem;">Esta decisión se tomó para garantizar que pueda concentrarse en desarrollar InquitiX sin presiones ni riesgos innecesarios. Su apoyo es la mayor motivación para seguir creando.</p>',
+          footerPrivacy: 'Privacidad',
+          footerContact: 'Contacto',
+          searchPlaceholder: 'Buscar InquitiX'
+        }
+      };
+
+      function changeLanguage(lang) {
+        const t = translations[lang];
+        if (!t) return;
+
+        elements.description.innerHTML = t.description;
+        elements.longDescription.innerHTML = t.longDescription;
+        elements.contactTitle.textContent = t.contactTitle;
+        elements.emailLabel.textContent = t.emailLabel;
+        elements.passwordLabel.textContent = t.passwordLabel;
+        elements.messageLabel.textContent = t.messageLabel;
+        elements.emailPlaceholder.placeholder = t.emailPlaceholder;
+        elements.passwordPlaceholder.placeholder = t.passwordPlaceholder;
+        elements.messagePlaceholder.placeholder = t.messagePlaceholder;
+        elements.sendBtnText.textContent = t.sendBtnText;
+        elements.aboutTitle.textContent = t.aboutTitle;
+        elements.creatorName.textContent = t.creatorName;
+        elements.aboutDescription.innerHTML = t.aboutDescription;
+        elements.aboutNote.innerHTML = t.aboutNote;
+        elements.footerPrivacy.textContent = t.footerPrivacy;
+        elements.footerContact.textContent = t.footerContact;
+        if (elements.searchPlaceholder) {
+          elements.searchPlaceholder.placeholder = t.searchPlaceholder;
+        }
+
+        languageDropdown.classList.remove('show');
+      }
+
+      langOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          const lang = option.getAttribute('data-lang');
+          changeLanguage(lang);
+        });
+      });
+
+      changeLanguage('id');
+      window.scrollTo(0, 0);
+    })();
+  </script>
+</body>
+</html>
